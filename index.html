@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Etch-A-Sketch</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Etch-A-Sketch!</h1>
+      <div class="controls">
+        <input
+          type="number"
+          id="grid-size-input"
+          min="4"
+          max="100"
+          placeholder="Enter size (4-100)"
+        />
+        <button id="create-grid">Create Grid</button>
+        <button id="reset-grid">Reset</button>
+      </div>
+      <div class="sketch-board">
+        <div class="grid-container"></div>
+      </div>
+    </div>
+    <script src="etchasketch.js"></script>
+  </body>
+</html>
