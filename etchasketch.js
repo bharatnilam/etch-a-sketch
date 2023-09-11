@@ -52,7 +52,10 @@ function createGrid(size) {
 
 function resetGrid() {
     const gridItems = document.querySelectorAll('.grid-item');
-    gridItems.forEach(gridItem => {
+    gridItems.forEach((gridItem, index) => {
         gridItem.style.backgroundColor = '';
+        gridState[index].hovered = false;
+        gridState[index].rgb = false;
+        gridState[index].hoverCount = 0;
     });
 }
