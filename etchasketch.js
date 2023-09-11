@@ -16,6 +16,8 @@ resetGridButton.addEventListener('click', () => {
     resetGrid();
 });
 
+const gridState = {};
+
 function createGrid(size) {
     gridContainer.innerHTML = '';
 
@@ -26,12 +28,24 @@ function createGrid(size) {
         const childDiv = document.createElement('div');
         childDiv.classList.add('grid-item');
         gridContainer.appendChild(childDiv);
+        gridState[i] = { hovered: false, rgb: false, hoverCount: 0};
     }
 
     const gridItems = document.querySelectorAll('.grid-item');
-    gridItems.forEach(gridItem => {
+    gridItems.forEach((gridItem, index) => {
         gridItem.addEventListener('mouseenter', () => {
-            gridItem.classList.add('hovered');
+            if (!gridState[index].hovered) {
+                gridState[index].rgb = [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)];
+                gridItem.style.backgroundColor = `rgb(${gridState[index].rgb[0]}, ${gridState[index].rgb[1]}, ${gridState[index].rgb[2]})`;
+                gridState[index].hovered = true;
+            } else if (gridState[index].hovered && gridState[index].hoverCount < 9) {
+                gridState[index].hoverCount++;
+                gridState[index].rgb = gridState[index].rgb.map(color => color * 0.9);
+                gridItem.style.backgroundColor = `rgb(${gridState[index].rgb[0]}, ${gridState[index].rgb[1]}, ${gridState[index].rgb[2]})`;
+            } else if (gridState[index].hovered && gridState[index].hoverCount === 9) {
+                gridState[index].rgb = [0, 0, 0];
+                gridItem.style.backgroundColor = 'rgb(0, 0, 0)';
+            }
         });
     });
 }
@@ -39,6 +53,6 @@ function createGrid(size) {
 function resetGrid() {
     const gridItems = document.querySelectorAll('.grid-item');
     gridItems.forEach(gridItem => {
-        gridItem.classList.remove('hovered');
+        gridItem.style.backgroundColor = '';
     });
 }
